@@ -1,4 +1,4 @@
-# 🎯 MCQ Management System
+# 🎯 Interview Preparation Helper for Software and IT students
 
 A comprehensive web application for managing and taking Multiple Choice Questions (MCQ) and Conceptual Questions (CQ) quizzes. Built with React frontend and Node.js/Express backend, featuring user authentication, quiz management, and job portal integration.
 
