@@ -1,7 +1,8 @@
 // seed.js
+
 const mongoose = require('mongoose');
 const Mcq = require('./models/mcq'); 
-
+require('dotenv').config();
 const mcqs = [
   // ============ DSA ============
   // ============ INTRO TO DS (10) ============
@@ -1806,7 +1807,7 @@ const mcqs = [
 ];
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/mcq_quiz', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

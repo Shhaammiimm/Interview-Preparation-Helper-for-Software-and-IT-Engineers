@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const CQ = require('./models/CQ');
+require('dotenv').config();
+mongoose.connect(process.env.MONGODB_URI)
+  .then(async () => {
+    console.log('MongoDB connected');
+  })
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+  });
 
-mongoose.connect('mongodb://127.0.0.1:27017/mcq_quiz', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
 
 const seedQuestions = [
     // ===== DBMS Questions  =====
