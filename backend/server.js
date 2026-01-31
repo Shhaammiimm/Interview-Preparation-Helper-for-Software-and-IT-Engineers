@@ -1,38 +1,33 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-
 const app = express();
-
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Connect MongoDB
-require('dotenv').config();
+// Routes
+const mcqRoutes = require('./routes/mcqRoutes');
+const cqRoutes = require('./routes/cqRoutes');
+const authRoutes = require('./routes/authRoutes');
+const resultRoutes = require('./routes/resultRoutes');
+
+app.use('/api/mcq', mcqRoutes);
+app.use('/api/cq', cqRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/results', resultRoutes);
+
+// // Simple test route
+// app.get('/test', (req, res) => res.json({ message: 'Server is working!' }));
+
+// Start server **after MongoDB connects**
+const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected'))
+  .then(() => {
+    console.log('MongoDB connected');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
   .catch(err => console.log('MongoDB connection error:', err));
-
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`Server running on port ${process.env.PORT || 5000}`);
-});
-// Routes
-const mcqRoutes = require('./routes/mcqRoutes'); // <-- MCQ route
-const cqRoutes = require('./routes/cqRoutes'); // <-- CQ route
-const authRoutes = require('./routes/authRoutes'); // <-- Auth route
-const resultRoutes = require('./routes/resultRoutes'); // <-- Result route
-
-app.use('/api/mcq', mcqRoutes);// <-- use MCQ route
-app.use('/api/cq', cqRoutes); // <-- use CQ route
-app.use('/api/auth', authRoutes); // <-- use Auth route
-app.use('/api/results', resultRoutes); // <-- use Result route
-
-
-
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
