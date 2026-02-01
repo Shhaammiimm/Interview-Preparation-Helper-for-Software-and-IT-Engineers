@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Quiz.css";
-require('dotenv').config();
+
 
 const Quiz = () => {
   const location = useLocation();

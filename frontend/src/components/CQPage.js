@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CQPage.css";
-require('dotenv').config();
+
 const CQPage = () => {
   const { category } = useParams();
   const navigate = useNavigate();

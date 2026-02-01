@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 import "./ForgotPassword.css";
-require('dotenv').config();
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 import "./Login.css";
-require('dotenv').config();
 
 const Login = () => {
   const [email, setEmail] = useState("");

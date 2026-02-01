@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-require('dotenv').config();
+
 import {
   BarChart,
   Bar,
