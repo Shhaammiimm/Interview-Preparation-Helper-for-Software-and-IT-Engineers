@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/static/css/main.971c1ddb.css",
-    "main.js": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/static/js/main.e8d0660e.js",
+    "main.js": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/static/js/main.50cba5bb.js",
     "index.html": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/index.html",
     "main.971c1ddb.css.map": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/static/css/main.971c1ddb.css.map",
-    "main.e8d0660e.js.map": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/static/js/main.e8d0660e.js.map"
+    "main.50cba5bb.js.map": "/Interview-Preparation-Helper-for-Software-and-IT-Engineers/static/js/main.50cba5bb.js.map"
   },
   "entrypoints": [
     "static/css/main.971c1ddb.css",
-    "static/js/main.e8d0660e.js"
+    "static/js/main.50cba5bb.js"
   ]
 }
