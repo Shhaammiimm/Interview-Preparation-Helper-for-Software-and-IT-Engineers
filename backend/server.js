@@ -22,6 +22,7 @@ app.use('/api/results', resultRoutes);
 // // Simple test route
  app.get('/test', (req, res) => res.json({ message: 'Server is working!' }));
 
+
 // Start server **after MongoDB connects**
 const PORT = process.env.PORT || 5000;
 
