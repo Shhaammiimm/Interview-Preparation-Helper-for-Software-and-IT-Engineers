@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Result.css";
+require('dotenv').config();
 
 const Result = () => {
   const location = useLocation();
@@ -45,7 +46,7 @@ const Result = () => {
 
       try {
         await axios.post(
-          "http://localhost:5000/api/results/save",
+          "${process.env.REACT_APP_API_BASE}/api/results/save",
           {
             totalScore: totalCorrect,
             totalQuestions: questions.length,

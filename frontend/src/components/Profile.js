@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+require('dotenv').config();
 import {
   BarChart,
   Bar,
@@ -28,7 +29,7 @@ const Profile = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/results/my-results", {
+        const res = await axios.get("${process.env.REACT_APP_API_BASE}/api/results/my-results", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setResults(res.data);

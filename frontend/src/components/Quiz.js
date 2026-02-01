@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Quiz.css";
+require('dotenv').config();
 
 const Quiz = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const Quiz = () => {
     if (!categories || categories.length === 0) return;
 
     axios
-      .post("http://localhost:5000/api/mcq/get-multi-quiz", { categories, count })
+      .post("${process.env.REACT_APP_API_BASE}/api/mcq/get-multi-quiz", { categories, count })
       .then((res) => {
         setQuestions(res.data);
         setLoading(false);
@@ -69,7 +70,7 @@ const Quiz = () => {
     }));
 
     axios
-      .post("http://localhost:5000/api/mcq/submit-quiz", { answers })
+      .post("${process.env.REACT_APP_API_BASE}/api/mcq/submit-quiz", { answers })
       .then((res) => {
         navigate("/result", { state: { result: res.data, questions } });
       })

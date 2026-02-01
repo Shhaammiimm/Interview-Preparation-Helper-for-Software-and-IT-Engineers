@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+require('dotenv').config();
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -24,7 +25,7 @@ const Signup = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", {
+      await axios.post("${process.env.REACT_APP_API_BASE}/api/auth/signup", {
         username,
         email,
         password,

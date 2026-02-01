@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CQPage.css";
-
+require('dotenv').config();
 const CQPage = () => {
   const { category } = useParams();
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const CQPage = () => {
     if (category) {
       setLoading(true);
       axios
-        .get(`http://localhost:5000/api/cq/get/${category}`)
+        .get(`${process.env.REACT_APP_API_BASE}/api/cq/get/${category}`)
         .then((res) => {
           setQuestions(res.data);
           setLoading(false);
