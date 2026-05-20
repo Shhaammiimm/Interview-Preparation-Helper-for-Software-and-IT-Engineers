@@ -1,15 +1,7 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const CQ = require('./models/CQ');
-require('dotenv').config();
-mongoose.connect(process.env.MONGODB_URI)
-  .then(async () => {
-    console.log('MongoDB connected');
-  })
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
-
-
+const { connectDatabase } = require('./config/database');
 const seedQuestions = [
     // ===== DBMS Questions  =====
     { question: "What is a DBMS?", answer: "A Database Management System (DBMS) is software that manages databases, providing an interface for users to interact with data, ensuring data integrity, security, and efficient retrieval.", category: "DBMS" },
@@ -898,4 +890,11 @@ const seedDB = async () => {
   console.log('Database seeded with CQ questions!');
 };
 
-seedDB().then(() => mongoose.connection.close());
+// Connect and seed
+connectDatabase()
+  .then(async () => {
+    await seedDB();
+    console.log('Seeding complete!');
+    await mongoose.connection.close();
+  })
+  .catch(() => process.exit(1));

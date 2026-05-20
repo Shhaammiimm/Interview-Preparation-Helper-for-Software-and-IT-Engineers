@@ -1,8 +1,7 @@
-// seed.js
-
-const mongoose = require('mongoose');
-const Mcq = require('./models/mcq'); 
 require('dotenv').config();
+const mongoose = require('mongoose');
+const Mcq = require('./models/mcq');
+const { connectDatabase } = require('./config/database');
 const mcqs = [
   // ============ DSA ============
   // ============ INTRO TO DS (10) ============
@@ -1806,24 +1805,16 @@ const mcqs = [
 
 ];
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(async () => {
-  console.log('MongoDB connected');
+connectDatabase()
+  .then(async () => {
+    await Mcq.deleteMany({});
+    console.log('Old MCQs cleared');
 
-  // Remove old MCQs if any
-  await Mcq.deleteMany({});
-  console.log('Old MCQs cleared');
+    await Mcq.insertMany(mcqs);
+    console.log(`${mcqs.length} MCQs inserted successfully`);
 
-  // Insert new MCQs
-  await Mcq.insertMany(mcqs);
-  console.log(`${mcqs.length} MCQs inserted successfully`);
-
-  mongoose.disconnect();
-})
-.catch(err => console.log(err));
+    await mongoose.disconnect();
+  })
+  .catch(() => process.exit(1));
 
 

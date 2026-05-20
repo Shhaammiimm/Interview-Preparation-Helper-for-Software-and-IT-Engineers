@@ -19,7 +19,7 @@ const Quiz = () => {
     if (!categories || categories.length === 0) return;
 
     axios
-      .post("${process.env.REACT_APP_API_BASE}/api/mcq/get-multi-quiz", { categories, count })
+      .post(`${process.env.REACT_APP_API_BASE}/api/mcq/get-multi-quiz`, { categories, count })
       .then((res) => {
         setQuestions(res.data);
         setLoading(false);
@@ -46,7 +46,7 @@ const Quiz = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [time]);
+  }, [time, handleSubmit]);
 
   // Format time mm:ss
   const formatTime = (seconds) => {
@@ -70,7 +70,7 @@ const Quiz = () => {
     }));
 
     axios
-      .post("${process.env.REACT_APP_API_BASE}/api/mcq/submit-quiz", { answers })
+      .post(`${process.env.REACT_APP_API_BASE}/api/mcq/submit-quiz`, { answers })
       .then((res) => {
         navigate("/result", { state: { result: res.data, questions } });
       })

@@ -29,7 +29,7 @@ const Profile = () => {
       }
 
       try {
-        const res = await axios.get("${process.env.REACT_APP_API_BASE}/api/results/my-results", {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE}/api/results/my-results`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setResults(res.data);

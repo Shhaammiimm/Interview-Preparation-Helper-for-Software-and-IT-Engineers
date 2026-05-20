@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Result.css";
@@ -10,25 +10,29 @@ const Result = () => {
   const { result, questions } = location.state || {};
 
   // Calculate per-category stats only if result exists
-  const categoryStats = {};
-  let totalCorrect = 0;
+  const categoryStats = useMemo(() => {
+    const stats = {};
+    if (result && questions) {
+      questions.forEach((q, idx) => {
+        const userAns = result.answers ? result.answers[idx]?.answer : null;
+        if (!stats[q.category]) {
+          stats[q.category] = { total: 0, correct: 0 };
+        }
+        stats[q.category].total += 1;
+        if (userAns && userAns === q.correctAnswer)
+          stats[q.category].correct += 1;
+      });
+    }
+    return stats;
+  }, [result, questions]);
 
-  if (result && questions) {
-    questions.forEach((q, idx) => {
-      const userAns = result.answers ? result.answers[idx]?.answer : null;
-      if (!categoryStats[q.category]) {
-        categoryStats[q.category] = { total: 0, correct: 0 };
-      }
-      categoryStats[q.category].total += 1;
-      if (userAns && userAns === q.correctAnswer)
-        categoryStats[q.category].correct += 1;
-    });
-
-    totalCorrect = questions.reduce((acc, q, idx) => {
+  const totalCorrect = useMemo(() => {
+    if (!result || !questions) return 0;
+    return questions.reduce((acc, q, idx) => {
       const userAns = result.answers ? result.answers[idx]?.answer : null;
       return userAns === q.correctAnswer ? acc + 1 : acc;
     }, 0);
-  }
+  }, [result, questions]);
 
   // ✅ Save result to backend only if user is logged in AND result exists
   useEffect(() => {
@@ -45,7 +49,7 @@ const Result = () => {
 
       try {
         await axios.post(
-          "${process.env.REACT_APP_API_BASE}/api/results/save",
+          `${process.env.REACT_APP_API_BASE}/api/results/save`,
           {
             totalScore: totalCorrect,
             totalQuestions: questions.length,
